@@ -2,8 +2,10 @@ package CandyCrush;
 
 import TMGE.GameTemplate;
 import java.util.ArrayList;
+import java.util.Random;
 
 //6 colors in CandyCrush, represented by 1, 2, 3, 4, 5, 6
+// Move-based gameplay e.g. 30 moves before gameover, NOT timer based
 
 public class CandyCrush extends GameTemplate {
 
@@ -29,6 +31,15 @@ public class CandyCrush extends GameTemplate {
 
     public boolean isGameOver() {
         return false;
+    }
+
+    public void createNewBoard() {
+        Random ran = new Random();
+        for (int i=0; i<row; i++) {
+            for (int j=0; j<col; j++) {
+                board.tileMap[i][j] = ran.nextInt(6) + 1;
+            }
+        }
     }
     
     //Check the same color grids in Horiztonal, store the match line points in Map.
@@ -68,14 +79,16 @@ public class CandyCrush extends GameTemplate {
     public static void main(String[] args) {
         CandyCrush test = new CandyCrush(9, 9);
         test.board.printBoard();
-        System.out.println("-------------");
-        test.board.tileMap[0][2] = 1;
-        test.board.tileMap[0][3] = 1;
-        test.board.tileMap[0][4] = 1;
-        test.board.tileMap[0][5] = 1;
-        test.board.tileMap[0][6] = 1;
-        test.matching();
+        test.createNewBoard();
         test.board.printBoard();
+        // System.out.println("-------------");
+        // test.board.tileMap[0][2] = 1;
+        // test.board.tileMap[0][3] = 1;
+        // test.board.tileMap[0][4] = 1;
+        // test.board.tileMap[0][5] = 1;
+        // test.board.tileMap[0][6] = 1;
+        // test.matching();
+        // test.board.printBoard();
 
     }
 }

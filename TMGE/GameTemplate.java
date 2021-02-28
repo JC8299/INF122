@@ -13,5 +13,7 @@ public abstract class GameTemplate {
     public abstract void update(int time);
 
     public abstract boolean isGameOver();
+
+    public abstract void createNewBoard();
     
 }

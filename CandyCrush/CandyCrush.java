@@ -4,6 +4,8 @@ import TMGE.GameTemplate;
 import java.util.ArrayList;
 import java.util.Random;
 
+import java.util.Scanner;
+
 //6 colors in CandyCrush, represented by 1, 2, 3, 4, 5, 6
 // Move-based gameplay e.g. 30 moves before gameover, NOT timer based
 
@@ -56,11 +58,20 @@ public class CandyCrush extends GameTemplate {
     }
 
     public void move(int row1, int col1, int row2, int col2) {
+        //check if blocks are next to each other
         if ((row1 != row2+1 && col1 != col2) ||
                 (row1 != row2-1 && col1 != col2) ||
                 (row1 != row2 && col1 != col2+1) ||
                 (row1 != row2 && col1 != col2-1)) {
-            System.out.println("Not a valid move");
+            System.out.println("Blocks not next to eachother");
+            return;
+        }
+        //check if given rows and cols are within the board
+        if ((row1 < 0 || row1 > row-1) || 
+                (col1 < 0 || col1 > col-1) ||
+                (row2 < 0 || row2 > row-1) ||
+                (col2 < 0 || col2 > col-1)) {
+            System.out.println("Invalid row/column");
             return;
         }
         int val1 = board.tileMap[row1][col1];
@@ -72,7 +83,6 @@ public class CandyCrush extends GameTemplate {
     
     //Check the same color grids in Horiztonal, store the match line points in Map.
     private void matchHorizontal(ArrayList<String> toChange) {
-        //ArrayList<String> <- "0 2"
         int counter = 1;
         for (int i=0; i<row; i++) {
             for (int j=0; j<col-1; j++) {
@@ -157,93 +167,244 @@ public class CandyCrush extends GameTemplate {
         }
     }
 
-    private boolean checkIfValidMoveExists() {
-        //check for two common elements in a row
-        //check the surrounding
-        //check horizontal, then check vertical
-        
-        //special cases?
-        // if (row1 == 0 && col1 == col-2 && row2 == 0 && col2 == col-1) {
-            //check if valid move exists
-            //return true or false
-
-        //check for two not in a row 
-        return true;
+    private boolean checkIfValidMoveExists() {       
+        if (checkValidHorizontal() && checkValidVertical()) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     private boolean checkValidHorizontal() {
-        for (int i=0; i<row-1; i++) {
-            for (int j=0; j<col-2; j++) {
+        for (int i=0; i<row-0; i++) {
+            for (int j=0; j<col-1; j++) {
                 if (board.tileMap[i][j] ==  board.tileMap[i][j+1]) {
-                    checkSurrounding(i, j, i, j+1);
+                    if (checkSurroundingH(i, j, i, j+1)) {
+                        return true;
+                    }
                 }
             }
         }
-
-        return true;
+        return false;
     }
 
     private boolean checkValidVertical(){
         for (int i=0; i<row-1; i++) {
-            for (int j=0; j<col-1; j++){
+            for (int j=0; j<col; j++){
                 if (board.tileMap[i][j] ==  board.tileMap[i+1][j]){
-                    checkSurrounding(i, j, i, j+1);
+                    if (checkSurroundingV(i, j, i+1, j)) {
+                        return true;
+                    }
                 }
             }
         }
-        return true;
+        return false;
     }
 
     private boolean checkSurroundingH(int row1, int col1, int row2, int col2){
         // top left
-        board.tileMap[row1][col1] = board.tileMap[row1 - 1][col1 - 1];
+        try {
+            if (board.tileMap[row1][col1] == board.tileMap[row1 - 1][col1 - 1]){
+                return true;
+            }
+        }
+        catch (IndexOutOfBoundsException e) {}
         // top right
-      
+        try {
+            if (board.tileMap[row1][col1] == board.tileMap[row1 + 1][col1 + 1]){
+                return true;
+            }
+        }
+        catch (IndexOutOfBoundsException e) {}
         // left
-       
+        try{
+            if (board.tileMap[row1][col1] == board.tileMap[row1 ][col1 - 2]){
+                return true;
+            }
+        }
+        catch (IndexOutOfBoundsException e) {}
         // right
+        try{
+             if (board.tileMap[row2][col2] == board.tileMap[row2 ][col2 + 2]){
+              return true;
+            }
+        }
+        catch (IndexOutOfBoundsException e) {}
         // bottom left
+        try {
+            if (board.tileMap[row2][col2] == board.tileMap[row2 + 1][col2 - 1]){
+                return true;
+            }
+        }
+        catch (IndexOutOfBoundsException e) {}
         // bottom right
-        // if (topleft, topright, left, right, bottomleft, bottomright) == [row1][col1]
-        // else if somewhere in the middle
-        return true;
+        try {
+            if (board.tileMap[row2][col2] == board.tileMap[row2 + 1][col2 + 1]){
+                return true;
+            }
+        }
+        catch (IndexOutOfBoundsException e) {}
+        // check immediate left (3 in a row) 
+        try {
+            if (board.tileMap[row1][col1] == board.tileMap[row1][col1-1]) {
+                return true;
+            }
+        }
+        catch (IndexOutOfBoundsException e) {}
+        // check immediate right (3 in a row)
+        try{
+            if (board.tileMap[row2][col2] == board.tileMap[row2][col2+1]) {
+                return true;
+            }
+        }
+        catch (IndexOutOfBoundsException e) {}
+        
+        return false;
     }
 
     private boolean checkSurroundingV(int row1, int col1, int row2, int col2) {
         //top left
-        if (board.tileMap[row1-1][col1-1] == board.tileMap[row1][col1]) {
-            return true;
+        try {
+            if (board.tileMap[row1-1][col1-1] == board.tileMap[row1][col1]) {
+                return true;
+            }
         }
+        catch (IndexOutOfBoundsException e) {}
         //top right
-        if (board.tileMap[row1-1][col1+1] == board.tileMap[row1][col1]) {
-            return true;
+        try {
+            if (board.tileMap[row1-1][col1+1] == board.tileMap[row1][col1]) {
+                return true;
+            }
         }
+        catch (IndexOutOfBoundsException e) {}
         //top
+        try {
+            if (board.tileMap[row1-2][col1] == board.tileMap[row1][col1]) {
+                return true;
+            }
+        }
+        catch (IndexOutOfBoundsException e) {}
         //bottom left
+        try {
+            if (board.tileMap[row2+1][col2-1] == board.tileMap[row2][col2]) {
+                return true;
+            }
+        }
+        catch (IndexOutOfBoundsException e) {}
         //bottom right
+        try {
+            if (board.tileMap[row2+1][col2+1] == board.tileMap[row2][col2]) {
+                return true;
+            }
+        }
+        catch (IndexOutOfBoundsException e) {}
         //bottom
+        try {
+            if (board.tileMap[row2+2][col2] == board.tileMap[row2][col2]) {
+                return true;
+            }
+        }
+        catch (IndexOutOfBoundsException e) {}
+        //immediate top (3 in a row)
+        try {
+            if (board.tileMap[row1][col1] == board.tileMap[row1-1][col1]) {
+                return true;
+            }
+        }
+        catch (IndexOutOfBoundsException e) {}
+        //immediate bottom (3 in a row)
+        try {
+            if (board.tileMap[row2][col2] == board.tileMap[row2+1][col2]) {
+                return true;
+            }
+        }
+        catch (IndexOutOfBoundsException e) {}
+
         return false;
     }
     
     public static void main(String[] args) {
         CandyCrush test = new CandyCrush();
-        test.board.printBoard();
-        // test.createNewBoard();
         // test.board.printBoard();
-        System.out.println("-------------");
-        test.board.tileMap[1][2] = 1;
-        test.board.tileMap[1][3] = 1;
-        test.board.tileMap[1][4] = 1;
-        test.board.tileMap[1][5] = 1;
-        test.board.tileMap[1][6] = 1;
+        test.createNewBoard();
+        test.board.printBoard();
+
+        // test.board.tileMap[0][0] = 1;
+        // test.board.tileMap[0][1] = 2;
+        // test.board.tileMap[0][2] = 3;
+        // test.board.tileMap[0][3] = 4;
+        // test.board.tileMap[1][0] = 8;
+        // test.board.tileMap[1][1] = 6;
+        // test.board.tileMap[1][2] = 7;
+        // test.board.tileMap[1][3] = 8;
+        // test.board.tileMap[2][0] = 1;
+        // test.board.tileMap[2][1] = 3;
+        // test.board.tileMap[2][2] = 2;
+        // test.board.tileMap[2][3] = 1;
+        // test.board.tileMap[3][0] = 1;
+        // test.board.tileMap[3][1] = 7;
+        // test.board.tileMap[3][2] = 6;
+        // test.board.tileMap[3][3] = 5;
+
+        // test.board.printBoard();
+
+        // System.out.println("-------------");
+        // test.board.tileMap[1][2] = 1;
+        // test.board.tileMap[1][3] = 1;
+        // test.board.tileMap[1][4] = 1;
+        // test.board.tileMap[1][5] = 1;
+        // test.board.tileMap[1][6] = 1;
 
         // test.board.tileMap[0][2] = 8;
         // test.board.tileMap[1][2] = 1;
         // test.board.tileMap[2][2] = 1;
         // test.board.tileMap[3][2] = 1;
         // test.board.tileMap[4][2] = 1;
-        test.matching();
-        test.board.printBoard();
+        // test.matching();
+        // test.board.printBoard();
+
+        System.out.println("horizontal checking: " + test.checkValidHorizontal());
+        System.out.println("vertical checking: " + test.checkValidVertical());
+        
+        // test.matching();
+        // test.board.printBoard();
+        // Scanner in = new Scanner(System.in);
+
+
+        // while (!test.isGameOver()) {
+        //     System.out.println("Enter move: ");
+        //     String move = in.nextLine();
+        //     System.out.println(move);
+        //     int row1 = Integer.parseInt(String.valueOf(move.charAt(0)));
+        //     System.out.println("row is " + row1);
+        //     int col1 = Integer.parseInt(String.valueOf(move.charAt(2)));
+        //     int row2 = Integer.parseInt(String.valueOf(move.charAt(4)));
+        //     int col2 = Integer.parseInt(String.valueOf(move.charAt(6)));
+        //     test.move(row1, col1, row2,col2);
+        //     test.matching();
+        //     test.board.printBoard();
+        //     //in.close();
+        // }
+        // in.close();
 
     }
 }
+// 6 6 3 4 1
+// 3 5 2 6 6
+// 1 3 5 2 4
+// 6 2 1 6 4
+// 4 1 4 6 6
+
+// 4 5 4 3 4 
+// 6 1 5 1 6
+// 2 3 1 1 5
+// 1 2 5 2 6
+// 3 2 6 6 6
+
+// WORKS
+// 1 2 3 6 4 
+// 2 4 1 1 1
+// 6 3 3 6 4
+// 3 2 1 6 3
+// 2 4 6 3 1

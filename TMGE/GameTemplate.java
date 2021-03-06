@@ -15,5 +15,7 @@ public abstract class GameTemplate {
     public abstract boolean isGameOver();
 
     public abstract void createNewBoard();
+
+    //public abstract void handleInput();
     
 }

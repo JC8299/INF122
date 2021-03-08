@@ -20,6 +20,10 @@ public abstract class GameTemplate {
 
     public abstract void createNewBoard();
 
+    public abstract void move(int row1, int col1, int row2, int col2);
+
+    public abstract int returnScore();
+
     //public abstract void handleInput();
     
 }

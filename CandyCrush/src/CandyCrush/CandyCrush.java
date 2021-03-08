@@ -16,12 +16,14 @@ public class CandyCrush extends GameTemplate {
     private int row; // initially set to 9
     private int col; // initially set to 9
     private int turnCounter; // initially set to 30
+    private int turnScore;
 
-    public CandyCrush() {
-        super(9, 9);
-        this.row = 9;
-        this.col = 9;
+    public CandyCrush(int row, int col) {
+        super(row, col);
+        this.row = row;
+        this.col = col;
         turnCounter = 30;
+        turnScore = 0;
     }
 
     public void matching() {
@@ -29,6 +31,7 @@ public class CandyCrush extends GameTemplate {
         matchHorizontal(toChange);
         matchVertical(toChange);
         changeValues(toChange);
+        turnScore = toChange.size();
         dropTiles();
         addRandomTilesToTop();
     }
@@ -80,6 +83,10 @@ public class CandyCrush extends GameTemplate {
         board.tileMap[row1][col1] = val2;
         board.tileMap[row2][col2] = val1;
         turnCounter--;
+    }
+
+    public int returnScore() {
+        return turnScore;
     }
     
     //Check the same color grids in Horiztonal, store the match line points in Map.

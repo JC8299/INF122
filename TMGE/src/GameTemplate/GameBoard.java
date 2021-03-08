@@ -1,4 +1,4 @@
-package TMGE;
+package GameTemplate;
 
 public class GameBoard {
 

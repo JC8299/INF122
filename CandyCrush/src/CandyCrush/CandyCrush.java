@@ -1,6 +1,6 @@
 package CandyCrush;
 
-import TMGE.GameTemplate;
+import GameTemplate.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -34,6 +34,7 @@ public class CandyCrush extends GameTemplate {
     }
 
     public void update(int time) {
+
         //handleInput()
         return;
     }

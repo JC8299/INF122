@@ -1,0 +1,3 @@
+module TMGE {
+    exports GameTemplate;
+}

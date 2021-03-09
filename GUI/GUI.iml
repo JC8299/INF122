@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="TMGE" />
     <orderEntry type="module" module-name="CandyCrush" />
+    <orderEntry type="module" module-name="Player" />
   </component>
 </module>

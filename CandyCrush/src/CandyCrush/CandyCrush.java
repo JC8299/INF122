@@ -333,7 +333,7 @@ public class CandyCrush extends GameTemplate {
     }
     
     public static void main(String[] args) {
-        CandyCrush test = new CandyCrush();
+        CandyCrush test = new CandyCrush(10,10);
         // test.board.printBoard();
         test.createNewBoard();
         test.board.printBoard();

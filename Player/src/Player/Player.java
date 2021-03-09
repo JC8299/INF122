@@ -1,4 +1,4 @@
-package GUI;
+package Player;
 
 public class Player {
     public int score1;

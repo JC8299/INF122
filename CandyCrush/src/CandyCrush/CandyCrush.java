@@ -61,14 +61,14 @@ public class CandyCrush extends GameTemplate {
         }
     }
 
-    public void move(int row1, int col1, int row2, int col2) {
+    public boolean move(int row1, int col1, int row2, int col2) {
         //check if blocks are next to each other
         if ((row1 != row2+1 && col1 != col2) ||
                 (row1 != row2-1 && col1 != col2) ||
                 (row1 != row2 && col1 != col2+1) ||
                 (row1 != row2 && col1 != col2-1)) {
             System.out.println("Blocks not next to eachother");
-            return;
+            return false;
         }
         //check if given rows and cols are within the board
         if ((row1 < 0 || row1 > row-1) || 
@@ -76,13 +76,14 @@ public class CandyCrush extends GameTemplate {
                 (row2 < 0 || row2 > row-1) ||
                 (col2 < 0 || col2 > col-1)) {
             System.out.println("Invalid row/column");
-            return;
+            return false;
         }
         int val1 = board.tileMap[row1][col1];
         int val2 = board.tileMap[row2][col2];
         board.tileMap[row1][col1] = val2;
         board.tileMap[row2][col2] = val1;
         turnCounter--;
+        return true;
     }
 
     public int returnScore() {

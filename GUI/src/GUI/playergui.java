@@ -3,11 +3,10 @@ package GUI;
 import Player.Player;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class playergui {
+public class PlayerGUI {
     public static void main(String[] args){
         JFrame jf = new JFrame();
         JButton b1 = new JButton("Player1");
@@ -18,7 +17,7 @@ public class playergui {
         b1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                playergui p = new playergui();
+                PlayerGUI p = new PlayerGUI();
                 p.gamestarter1(p1,p2);
 
             }
@@ -26,7 +25,7 @@ public class playergui {
         b2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                playergui p = new playergui();
+                PlayerGUI p = new PlayerGUI();
                 p.gamestarter1(p2,p1);
             }
         });
@@ -63,6 +62,17 @@ public class playergui {
                 }
             }
         });
+        b2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Controller c = new Controller(p1,p2);
+                try {
+                    c.test2(p1,p2);
+                } catch (InterruptedException interruptedException) {
+                    interruptedException.printStackTrace();
+                }
+            }
+        });
         b1.setBounds(20,50,120, 40);
         b2.setBounds(20,100,100, 40);
         b3.setBounds(150,50,120,40);
@@ -73,31 +83,6 @@ public class playergui {
         jf.setLayout(null);
         jf.setVisible(true);
     }
-    public void gamestarter2(Player p1,Player p2){
-        JFrame jf = new JFrame();
-        JButton b1 = new JButton("CandyCrush");
-        JButton b2 = new JButton("Tetris");
-
-        jf.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-        b1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Controller c = new Controller();
-                try {
-                    c.test1(p1);
-                } catch (InterruptedException interruptedException) {
-                    interruptedException.printStackTrace();
-                }
-            }
-        });
-        b1.setBounds(65,50,100, 40);
-        b2.setBounds(65,100,100, 40);
-        jf.add(b1);
-        jf.add(b2);
-        jf.setSize(200,200);
-        jf.setLayout(null);
-        jf.setVisible(true);
-    }
+//
 
 }

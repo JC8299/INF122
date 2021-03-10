@@ -8,18 +8,20 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Controller {
-    //public Player player1;
-    //public Player player2;
-    //private List<GameTemplate> gameList;
-    //public GUI gui;
+    int exit = 0;
     boolean selected = false;
     private boolean running = true;
-    JFrame jf1;
     GameTemplate g;
-
+    int player_count = 1;
+    Player current_player;
+    Player next_player;
     public Controller(){
     }
-
+    public Controller(Player p1, Player p2){
+        current_player = p1;
+        next_player = p2;
+        player_count = 2;
+    }
     public static void main(String[] args){
         Controller c = new Controller();
         c.run();
@@ -90,23 +92,43 @@ public class Controller {
                 else if(e.getKeyCode()==KeyEvent.VK_SPACE){
                     if(!selected){
                         selected = true;
-//                        int[] qw = g.temp1;
                         g.temp2[0] = g.temp1[0];
                         g.temp2[1]= g.temp1[1];
-                        System.out.println("s");
                     }
                     else{
-                        System.out.println("a");
-
                         selected = false;
-                        int i = g.board.tileMap[g.temp1[0]][g.temp1[1]];
-                        int j = g.board.tileMap[g.temp2[0]][g.temp2[1]];
-                        g.board.tileMap[g.temp1[0]][g.temp1[1]] = j;
-                        g.board.tileMap[g.temp2[0]][g.temp2[1]] = i;
-                        g.temp2[0] = -2;
-                        g.temp2[1] = -2;
+
+                        if(g.move(g.temp1[0],g.temp1[1],g.temp2[0],g.temp2[1])){
+                            int i = g.board.tileMap[g.temp1[0]][g.temp1[1]];
+                            int j = g.board.tileMap[g.temp2[0]][g.temp2[1]];
+                            g.board.tileMap[g.temp1[0]][g.temp1[1]] = j;
+                            g.board.tileMap[g.temp2[0]][g.temp2[1]] = i;
+                            g.temp2[0] = -2;
+                            g.temp2[1] = -2;
+
+                            g.matching();
+                            current_player.score1+=g.returnScore();
+
+                        }
+                        else{
+                            selected = false;
+                            g.temp2[0] = -2;
+                            g.temp2[1] = -2;
+                        }
+
+                        if(player_count == 2){
+                            Player p1 = current_player;
+                            Player p2 = next_player;
+                            current_player = p2;
+                            next_player = p1;
+                         }
                     }
+//
                 }
+                else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+                    exit = 1;
+                }
+
             }
 
             @Override
@@ -126,7 +148,7 @@ public class Controller {
         jf1.setSize(g.board.tileMap[0].length*100, g.board.tileMap.length*100);
         movetemp(jf1);
 
-        gui gg = new gui(g.board.tileMap,g);
+        GamePanel gg = new GamePanel(g.board.tileMap,g,1);
 
         boolean isover = true;
         int score = 10;
@@ -151,7 +173,7 @@ public class Controller {
                     //anything called outside of this if will be dependent on machine
 //            gg.render(g.board.tileMap,jf);
 
-                    gui gg = new gui(g.board.tileMap,g);
+                    GamePanel gg = new GamePanel(g.board.tileMap,g,2);
 
                     jf1.getContentPane().add(gg);
                     jf1.setVisible(true);
@@ -178,8 +200,9 @@ public class Controller {
                             running = false;
                         }
                     }
-                    if(isover){
+                    if(exit == 1){
                         p1.score1=score;
+                        jf1.dispose();
                         return null;
                     }
                 }
@@ -190,7 +213,7 @@ public class Controller {
         worker.execute();
 
     }
-    public void test2(Player p1) throws InterruptedException {
+    public void test2(Player p1,Player p2) throws InterruptedException {
 
         JFrame jf1 = new JFrame();
         jf1.setVisible(true);
@@ -200,7 +223,7 @@ public class Controller {
         jf1.setSize(g.board.tileMap[0].length*100, g.board.tileMap.length*100);
         movetemp(jf1);
 
-        gui gg = new gui(g.board.tileMap,g);
+        GamePanel gg = new GamePanel(g.board.tileMap,g,1);
 
         boolean isover = true;
         int score = 10;
@@ -225,7 +248,7 @@ public class Controller {
                     //anything called outside of this if will be dependent on machine
 //            gg.render(g.board.tileMap,jf);
 
-                    gui gg = new gui(g.board.tileMap,g);
+                    GamePanel gg = new GamePanel(g.board.tileMap,g,1);
 
                     jf1.getContentPane().add(gg);
                     jf1.setVisible(true);
@@ -280,7 +303,7 @@ public class Controller {
         g.createNewBoard();
         jf1.setSize(g.board.tileMap[0].length*100,g.board.tileMap.length*100);
         jf1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gui gg = new gui(g.board.tileMap,g);
+        GamePanel gg = new GamePanel(g.board.tileMap,g,1);
         jf1.getContentPane().add(gg);
 
         jf1.addKeyListener(new KeyListener() {
@@ -317,7 +340,7 @@ public class Controller {
             //will only be called when the time from last loop is greater than one second divided by TARGET_FPS
             //anything called outside of this if will be dependent on machine
 //            gg.render(g.board.tileMap,jf);
-            gg = new gui(g.board.tileMap,g);
+            gg = new GamePanel(g.board.tileMap,g,1);
 
 
 

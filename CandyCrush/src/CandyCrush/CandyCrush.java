@@ -173,11 +173,11 @@ public class CandyCrush extends GameTemplate {
     }
 
     private void moveDown(int row, int col){
-        if (row != 0){
+        if (col != 0){
             int temp;
-            temp = board.tileMap[row-1][col];
+            temp = board.tileMap[row][col-1];
             board.tileMap[row][col]= temp;
-            moveDown(row-1,col);
+            moveDown(row,col-1);
         }
         else{
             board.tileMap[row][col] = -1;

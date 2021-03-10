@@ -2,8 +2,8 @@ package Player;
 
 public class Player {
     public String name;
-    public int scoreOne;
-    public int scoreTwo;
+    public int score1;
+    public int score2;
     public Player(String n){
         name = n;
         score1 = 0;
@@ -15,18 +15,18 @@ public class Player {
     }
     
     public void setScoreOne(int s) {
-        scoreOne = s;
+        score1 = s;
     }
     
     public int getScoreOne() {
-        return scoreOne;
+        return score1;
     }
     
-    public int setScoreTwo(int s) {
-        scoreTwo = s;
+    public void setScoreTwo(int s) {
+        score2 = s;
     }
     
     public int getScoreTwo() {
-        return scoreTwo;
+        return score2;
     }
 }

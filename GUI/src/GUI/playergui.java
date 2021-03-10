@@ -12,8 +12,8 @@ public class PlayerGUI {
         JFrame jf = new JFrame();
         JButton b1 = new JButton("Player1");
         JButton b2 = new JButton("Player2");
-        Player p1 = new Player();
-        Player p2 = new Player();
+        Player p1 = new Player("Player1");
+        Player p2 = new Player("Player2");
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         b1.addActionListener(new ActionListener() {
             @Override

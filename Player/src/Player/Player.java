@@ -1,16 +1,16 @@
 package Player;
 
 public class Player {
-    public string name;
+    public String name;
     public int scoreOne;
     public int scoreTwo;
-    public Player(string n){
+    public Player(String n){
         name = n;
         score1 = 0;
         score2 = 0;
     }
 
-    public string getName() {
+    public String getName() {
         return name;
     }
     

@@ -19,9 +19,9 @@ public class CandyCrush extends GameTemplate {
     private int turnScore;
 
     public CandyCrush(int row, int col) {
-        super(row, col);
-        this.row = row;
-        this.col = col;
+        super(col, row);
+        this.row = col;
+        this.col = row;
         turnCounter = 30;
         turnScore = 0;
     }
@@ -63,15 +63,15 @@ public class CandyCrush extends GameTemplate {
 
     public boolean move(int row1, int col1, int row2, int col2) {
         //check if blocks are next to each other
-        if (!(row1 == row2+1 && col1 == col2) ||
-                !(row1 == row2-1 && col1 == col2) ||
-                !(row1 == row2 && col1 == col2+1) ||
+        if (!(row1 == row2+1 && col1 == col2) &&
+                !(row1 == row2-1 && col1 == col2) &&
+                !(row1 == row2 && col1 == col2+1) &&
                 !(row1 == row2 && col1 == col2-1)) {
             System.out.println("Blocks not next to eachother");
             return false;
         }
         //check if given rows and cols are within the board
-        if ((row1 < 0 || row1 > row-1) || 
+        if ((row1 < 0 || row1 > row-1) ||
                 (col1 < 0 || col1 > col-1) ||
                 (row2 < 0 || row2 > row-1) ||
                 (col2 < 0 || col2 > col-1)) {
@@ -89,7 +89,7 @@ public class CandyCrush extends GameTemplate {
     public int returnScore() {
         return turnScore;
     }
-    
+
     //Check the same color grids in Horiztonal, store the match line points in Map.
     private void matchHorizontal(ArrayList<String> toChange) {
         int counter = 1;
@@ -97,7 +97,7 @@ public class CandyCrush extends GameTemplate {
             for (int j=0; j<col-1; j++) {
                 if (board.tileMap[i][j] == board.tileMap[i][j+1] && j+1 == col-1) {
                     counter++;
-                    if (counter >= 2) {
+                    if (counter >= 3) {
                         toChange.add(i + " " + (j-1));
                         toChange.add(i + " " + j);
                         toChange.add(i + " " + (j+1));
@@ -116,8 +116,9 @@ public class CandyCrush extends GameTemplate {
                         toChange.add(i + " " + j);
                     }
                     counter = 1;
-                }             
-            }       
+                }
+            }
+            counter = 1;
         }
     }
 
@@ -127,7 +128,7 @@ public class CandyCrush extends GameTemplate {
             for (int j=0; j<row-1; j++) {
                 if (board.tileMap[j][i] == board.tileMap[j+1][i] && j+1 == row-1) {
                     counter++;
-                    if (counter >= 2) {
+                    if (counter >= 3) {
                         toChange.add((j-1) + " " + i);
                         toChange.add(j + " " + i);
                         toChange.add((j+1) + " " + i);
@@ -146,8 +147,9 @@ public class CandyCrush extends GameTemplate {
                         toChange.add(j + " " + i);
                     }
                     counter = 1;
-                }             
-            }       
+                }
+            }
+            counter = 1;
         }
 
     }
@@ -159,7 +161,7 @@ public class CandyCrush extends GameTemplate {
         }
     }
 
-    private void dropTiles() {       
+    private void dropTiles() {
         for (int j=0; j<col; j++) {
             for (int i=0; i<row; i++) {
                 if (board.tileMap[i][j] == -1) {
@@ -170,17 +172,18 @@ public class CandyCrush extends GameTemplate {
         }
     }
 
-    private void moveDown(int row, int col){
-        if (row != 0){
+    private void moveDown(int row, int
+            col){
+        if (col != 0){
             int temp;
-            temp = board.tileMap[row-1][col];
+            temp = board.tileMap[row][col-1];
             board.tileMap[row][col]= temp;
-            moveDown(row-1,col);
+            moveDown(row,col-1);
         }
         else{
             board.tileMap[row][col] = -1;
             return;
-        }    
+        }
     }
 
     private void addRandomTilesToTop() {
@@ -193,8 +196,31 @@ public class CandyCrush extends GameTemplate {
             }
         }
     }
+//    private void moveDown(int row, int col){
+//        if (row != 0){
+//            int temp;
+//            temp = board.tileMap[row-1][col];
+//            board.tileMap[row][col]= temp;
+//            moveDown(row-1,col);
+//        }
+//        else{
+//            board.tileMap[row][col] = -1;
+//            return;
+//        }
+//    }
+//
+//    private void addRandomTilesToTop() {
+//        Random ran = new Random();
+//        for (int i=0; i<row; i++) {
+//            for (int j=0; j<col; j++) {
+//                if (board.tileMap[i][j] == -1) {
+//                    board.tileMap[i][j] = ran.nextInt(6) + 1;
+//                }
+//            }
+//        }
+//    }
 
-    private boolean checkIfValidMoveExists() {       
+    private boolean checkIfValidMoveExists() {
         if (checkValidHorizontal() && checkValidVertical()) {
             return true;
         }
@@ -253,8 +279,8 @@ public class CandyCrush extends GameTemplate {
         catch (IndexOutOfBoundsException e) {}
         // right
         try{
-             if (board.tileMap[row2][col2] == board.tileMap[row2 ][col2 + 2]){
-              return true;
+            if (board.tileMap[row2][col2] == board.tileMap[row2 ][col2 + 2]){
+                return true;
             }
         }
         catch (IndexOutOfBoundsException e) {}
@@ -272,7 +298,7 @@ public class CandyCrush extends GameTemplate {
             }
         }
         catch (IndexOutOfBoundsException e) {}
-        // check immediate left (3 in a row) 
+        // check immediate left (3 in a row)
         try {
             if (board.tileMap[row1][col1] == board.tileMap[row1][col1-1]) {
                 return true;
@@ -286,7 +312,7 @@ public class CandyCrush extends GameTemplate {
             }
         }
         catch (IndexOutOfBoundsException e) {}
-        
+
         return false;
     }
 
@@ -350,7 +376,7 @@ public class CandyCrush extends GameTemplate {
 
         return false;
     }
-    
+
     public static void main(String[] args) {
         CandyCrush test = new CandyCrush(10,10);
         // test.board.printBoard();
@@ -393,7 +419,7 @@ public class CandyCrush extends GameTemplate {
 
         System.out.println("horizontal checking: " + test.checkValidHorizontal());
         System.out.println("vertical checking: " + test.checkValidVertical());
-        
+
         // test.matching();
         // test.board.printBoard();
         // Scanner in = new Scanner(System.in);

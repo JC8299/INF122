@@ -1,9 +1,13 @@
 package GUI;
 
+import javax.swing.*;
+
 public class GUITemplate
 {
-    GamePanel gamegui;
-    PlayerGUI playergui;
+    Controller controller;
+    GamePanel gamePanel;
+    PlayerGUI playerGUI;
     int player_count = 1;
+    JFrame jf;
 
 }

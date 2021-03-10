@@ -1,5 +1,6 @@
 package GUI;
 
+import CandyCrush.CandyCrush;
 import Player.Player;
 
 import javax.swing.*;
@@ -54,20 +55,20 @@ public class PlayerGUI {
         b1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Controller c = new Controller();
+                Controller c = new Controller(new CandyCrush(10,10),p1);
                 try {
-                    c.test1(p1);
+                    c.Gameloop();
                 } catch (InterruptedException interruptedException) {
                     interruptedException.printStackTrace();
                 }
             }
         });
-        b2.addActionListener(new ActionListener() {
+        b3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Controller c = new Controller(p1,p2);
+                Controller c = new Controller(new CandyCrush(10,10),p1,p2);
                 try {
-                    c.test2(p1,p2);
+                    c.Gameloop1();
                 } catch (InterruptedException interruptedException) {
                     interruptedException.printStackTrace();
                 }

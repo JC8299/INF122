@@ -117,7 +117,8 @@ public class CandyCrush extends GameTemplate {
                     }
                     counter = 1;
                 }             
-            }       
+            }
+            counter = 1;       
         }
     }
 
@@ -147,7 +148,8 @@ public class CandyCrush extends GameTemplate {
                     }
                     counter = 1;
                 }             
-            }       
+            }
+            counter = 1;       
         }
 
     }

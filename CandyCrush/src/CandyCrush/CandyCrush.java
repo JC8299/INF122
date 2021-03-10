@@ -63,9 +63,9 @@ public class CandyCrush extends GameTemplate {
 
     public boolean move(int row1, int col1, int row2, int col2) {
         //check if blocks are next to each other
-        if (!(row1 == row2+1 && col1 == col2) ||
-                !(row1 == row2-1 && col1 == col2) ||
-                !(row1 == row2 && col1 == col2+1) ||
+        if (!(row1 == row2+1 && col1 == col2) &&
+                !(row1 == row2-1 && col1 == col2) &&
+                !(row1 == row2 && col1 == col2+1) &&
                 !(row1 == row2 && col1 == col2-1)) {
             System.out.println("Blocks not next to eachother");
             return false;
@@ -97,7 +97,7 @@ public class CandyCrush extends GameTemplate {
             for (int j=0; j<col-1; j++) {
                 if (board.tileMap[i][j] == board.tileMap[i][j+1] && j+1 == col-1) {
                     counter++;
-                    if (counter >= 2) {
+                    if (counter >= 3) {
                         toChange.add(i + " " + (j-1));
                         toChange.add(i + " " + j);
                         toChange.add(i + " " + (j+1));
@@ -127,7 +127,7 @@ public class CandyCrush extends GameTemplate {
             for (int j=0; j<row-1; j++) {
                 if (board.tileMap[j][i] == board.tileMap[j+1][i] && j+1 == row-1) {
                     counter++;
-                    if (counter >= 2) {
+                    if (counter >= 3) {
                         toChange.add((j-1) + " " + i);
                         toChange.add(j + " " + i);
                         toChange.add((j+1) + " " + i);

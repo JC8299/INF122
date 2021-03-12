@@ -71,8 +71,10 @@ public class Tetris extends GameTemplate {
 
 	@Override
 	public void update(int time) {
+		unplacePiece();
 		//handleInput()
 		dropPiece();
+		placePiece();
 		matching();
         return;	
 	}
@@ -250,6 +252,21 @@ public class Tetris extends GameTemplate {
 			newPiece();
 		}
 	}
+	//Temporarily place piece on board between updates
+	private void placePiece() {
+		for (int[] point : currentPiece) {
+			if (point[1] >= 0) {
+				board.tileMap[point[1]][point[0]] = currentColor;
+			}	
+		}
+	}
+	private void unplacePiece() {
+		for (int[] point : currentPiece) {
+			if (point[1] >= 0) {
+				board.tileMap[point[1]][point[0]] = 0;
+			}
+		}
+	}
 	private void printPiece() {
 		System.out.println("Color: " + currentColor);
 		for (int[] point : currentPiece) {
@@ -296,9 +313,10 @@ public class Tetris extends GameTemplate {
 	public static void main(String[] args) {
 		Tetris test = new Tetris(40,10);
 		while(!test.isGameOver()) {
-			test.dropPiece();
+			test.update(0);
+			test.board.printBoard();
 		}
-		test.board.printBoard();
+		
 	}
 	
 }

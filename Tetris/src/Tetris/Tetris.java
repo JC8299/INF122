@@ -73,7 +73,7 @@ public class Tetris extends GameTemplate {
 	public void update(int time) {
 		unplacePiece();
 		//handleInput()
-		movePieceLeft();
+		rotatePieceRight();
 		if(dropPiece()) {
 			placePiece();
 		}
@@ -210,21 +210,43 @@ public class Tetris extends GameTemplate {
 		}
 		return true;
 	}
-	
-	//NOT FUNCTIONAL
 	private boolean canRotateRight() {
 		if (currentColor == 2) {
 			return true;
 		}
 		int[][] tempPoints = new int[4][2];
-		int size = 3;
-		if (currentColor == 1) {
-			size = 4;
-		}
+		int[] pivot = currentPiece[2];
 		int i = 0;
 		for (int[] point : currentPiece) {
-			int xn = 1 - (point[1]-(size-2));
-			int yn = point[0];
+			int xn = -point[1] + pivot[0] + pivot[1];
+			int yn = point[0] - pivot[0] + pivot[1];
+			tempPoints[i][0] = xn;
+			tempPoints[i][1] = yn;
+			i++;
+		}
+		for (int[] point : tempPoints) {
+			if (point[0] < 0 || point[0] >= width) {
+				return false;
+			}
+			if (point[1] < 0 || point[1] >= height) {
+				return false;
+			}
+			if (board.tileMap[point[1]][point[0]] > 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+	private boolean canRotateLeft() {
+		if (currentColor == 2) {
+			return true;
+		}
+		int[][] tempPoints = new int[4][2];
+		int[] pivot = currentPiece[2];
+		int i = 0;
+		for (int[] point : currentPiece) {
+			int xn = point[1] + pivot[0] - pivot[1];
+			int yn = -point[0] + pivot[0] + pivot[1];
 			tempPoints[i][0] = xn;
 			tempPoints[i][1] = yn;
 			i++;
@@ -304,16 +326,34 @@ public class Tetris extends GameTemplate {
 			}
 		}
 	}
-	//NOT FUNCTIONAL
 	public void rotatePieceRight() {
-		if (currentColor == 2) {
-			return;
+		if (canRotateRight()) {
+			System.out.println("ROTATE RIGHT " + currentColor);
+			if (currentColor == 2) {
+				return;
+			}
+			int[] pivot = currentPiece[2];
+			for (int[] point : currentPiece) {
+				int xn = -point[1] + pivot[0] + pivot[1];
+				int yn = point[0] - pivot[0] + pivot[1];
+				point[0] = xn;
+				point[1] = yn;
+			}
 		}
-		for (int[] point : currentPiece) {
-			int xn = -point[1];
-			int yn = point[0];
-			point[0] = xn;
-			point[1] = yn;
+	}
+	public void rotatePieceLeft() {
+		if (canRotateLeft()) {
+			System.out.println("ROTATE LEFT " + currentColor);
+			if (currentColor == 2) {
+				return;
+			}
+			int[] pivot = currentPiece[2];
+			for (int[] point : currentPiece) {
+				int xn = point[1] + pivot[0] - pivot[1];
+				int yn = -point[0] + pivot[0] + pivot[1];
+				point[0] = xn;
+				point[1] = yn;
+			}
 		}
 	}
 	public static void main(String[] args) {

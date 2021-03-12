@@ -4,9 +4,11 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/122f.iml" filepath="$PROJECT_DIR$/122f.iml" />
       <module fileurl="file://$PROJECT_DIR$/CandyCrush/CandyCrush.iml" filepath="$PROJECT_DIR$/CandyCrush/CandyCrush.iml" />
-      <module fileurl="file://$PROJECT_DIR$/GUI/GUI.iml" filepath="$PROJECT_DIR$/GUI/GUI.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Player/Player.iml" filepath="$PROJECT_DIR$/Player/Player.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Main/Main.iml" filepath="$PROJECT_DIR$/Main/Main.iml" />
       <module fileurl="file://$PROJECT_DIR$/TMGE/TMGE.iml" filepath="$PROJECT_DIR$/TMGE/TMGE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TMGE-GUI/TMGE-GUI.iml" filepath="$PROJECT_DIR$/TMGE-GUI/TMGE-GUI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TMGE-PLAYER/TMGE-PLAYER.iml" filepath="$PROJECT_DIR$/TMGE-PLAYER/TMGE-PLAYER.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Tetris/Tetris.iml" filepath="$PROJECT_DIR$/Tetris/Tetris.iml" />
     </modules>
   </component>
 </project>

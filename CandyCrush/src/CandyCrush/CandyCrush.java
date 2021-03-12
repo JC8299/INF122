@@ -59,6 +59,13 @@ public class CandyCrush extends GameTemplate {
                 board.tileMap[i][j] = ran.nextInt(6) + 1;
             }
         }
+        while (!checkIfValidMoveExists()) {
+            for (int i=0; i<row; i++) {
+                for (int j=0; j<col; j++) {
+                    board.tileMap[i][j] = ran.nextInt(6) + 1;
+                }
+            }
+        }
     }
 
     public boolean move(int row1, int col1, int row2, int col2) {

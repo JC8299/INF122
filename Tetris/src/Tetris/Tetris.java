@@ -73,9 +73,13 @@ public class Tetris extends GameTemplate {
 	public void update(int time) {
 		unplacePiece();
 		//handleInput()
-		dropPiece();
-		placePiece();
-		matching();
+		movePieceLeft();
+		if(dropPiece()) {
+			placePiece();
+		}
+		else {
+			matching();
+		}
         return;	
 	}
 
@@ -274,14 +278,16 @@ public class Tetris extends GameTemplate {
 		}
 	}
 	//Drop current piece one row if able to, else set in place
-	public void dropPiece() {
+	public boolean dropPiece() {
 		if (canMove(0,1)) {
 			for (int[] point : currentPiece) {
 				point[1]++;
 			}
+			return true;
 		}
 		else {
 			setPiece();
+			return false;
 		}
 	}
 	public void movePieceLeft() {

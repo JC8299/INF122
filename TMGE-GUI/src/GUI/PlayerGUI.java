@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 
 public class PlayerGUI {
     public static void main(String[] args){
+        //set up the GUI for player logging
         JFrame jf = new JFrame();
         JButton b1 = new JButton("Player1");
         JButton b2 = new JButton("Player2");
@@ -43,6 +44,7 @@ public class PlayerGUI {
 
     }
     public void gamestarter1(Player p1,Player p2){
+        //set up the GUI for choosing the game.
         JFrame jf = new JFrame();
         jf.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JButton b1 = new JButton("CandyCrush 1");

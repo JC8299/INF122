@@ -9,14 +9,16 @@ import java.awt.event.KeyListener;
 public class GameControl_CandyCrush extends GameControlTemplate {
     int turncount = 30;
     boolean selected = false;
-    boolean repeat = false;
 
 
 
 
     public GameControl_CandyCrush(GameTemplate g, Player p1){
         super(g,p1);
+
         do { g.matching();} while(g.returnScore()!=0);
+        next_player=0;
+
         jf1.setVisible(true);
         jf1.setSize(g.board.tileMap[0].length*105, g.board.tileMap.length*110);
         jf1.setTitle("Score:"+current_player.score1 + " Turn Left:" + turncount);
@@ -105,9 +107,9 @@ public class GameControl_CandyCrush extends GameControlTemplate {
                         if(g.move(g.temp1[0],g.temp1[1],g.temp2[0],g.temp2[1])){
                             g.temp2[0] = -2;
                             g.temp2[1] = -2;
-                            do{g.matching();
-                            current_player.score1+=g.returnScore();
-                            }while(g.returnScore()!=0);
+//                            do{g.matching();
+//                            current_player.score1+=g.returnScore();
+//                            }while(g.returnScore()!=0);
 //                            g.matching();
 //                            current_player.score1+=g.returnScore();
 //
@@ -138,6 +140,7 @@ public class GameControl_CandyCrush extends GameControlTemplate {
             }
         });
     }
+
 //    public void Keyboard_control_2(){
 //        jf1.addKeyListener(new KeyListener() {
 //            @Override
@@ -265,25 +268,19 @@ public class GameControl_CandyCrush extends GameControlTemplate {
                     if(player_count==1){jf1.setTitle("Score:"+current_player.getScoreOne() + " Turn Left:" + turncount);}
                     else{jf1.setTitle("Player1 Score:"+player_pool[0].score1 +" Player2 Score:"+player_pool[1].score1+ " Turn Left:" + turncount);}
 
-//                    gp = new GamePanel_CandyCrush(g,next_player);
-//                    g.matching();
-//                    if(g.returnScore()!=0){
-//                        current_player.score1+=g.returnScore();
-////                        gp = new GamePanel_CandyCrush(g,next_player);
-//                        Timer time = new Timer(2000, new ActionListener() {
-//                            @Override
-//                            public void actionPerformed(ActionEvent e) {
-//
-//
-//                                jf1.getContentPane().add(gp);
-//                                jf1.setVisible(true);
-//                            }
-//                        });
-//                        time.setRepeats(false);
-//                        time.start();
-//                    }
-
                     gp = new GamePanel_CandyCrush(g,next_player);
+                    g.matching();
+                    if(g.returnScore()!=0){
+                        player_pool[next_player].score1+=g.returnScore();
+                        int update = 0;
+                        while(update<=1500){
+                                jf1.getContentPane().add(gp);
+                                jf1.setVisible(true);
+                                update++;
+                            }
+                        }
+
+
                     jf1.getContentPane().add(gp);
                     jf1.setVisible(true);
 

@@ -28,7 +28,8 @@ public abstract class GameControlTemplate {
         this.g = g;
         this.g.createNewBoard();
         current_player = p1;
-
+        player_pool = new Player[]{p1};
+        player_count=1;
     }
     public GameControlTemplate(GameTemplate g,Player p1,Player p2){
         this.g = g;
@@ -39,7 +40,6 @@ public abstract class GameControlTemplate {
     }
     public abstract void Keyboard_control_1();
     public abstract void Gameloop() throws InterruptedException;
-
     public long getInitialTime() {
         return initialTime;
     }

@@ -1,11 +1,13 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="GUI:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/GUI_jar</output-path>
-    <root id="archive" name="GUI.jar">
+  <artifact type="jar" name="INF122:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/INF122_jar</output-path>
+    <root id="archive" name="INF122.jar">
       <element id="module-output" name="TMGE-GUI" />
       <element id="module-output" name="TMGE" />
       <element id="module-output" name="CandyCrush" />
       <element id="module-output" name="TMGE-PLAYER" />
+      <element id="module-output" name="Tetris" />
+      <element id="module-output" name="122f" />
     </root>
   </artifact>
 </component>

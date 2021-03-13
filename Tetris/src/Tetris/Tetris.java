@@ -53,18 +53,19 @@ public class Tetris extends GameTemplate {
 		}
 		switch (matches.size()) {
 			case 0:
+				score = 0;
 				break;
 			case 1:
-				score += 100;
+				score = 100;
 				break;
 			case 2:
-				score += 300;
+				score = 300;
 				break;
 			case 3:
-				score += 500;
+				score = 500;
 				break;
 			case 4:
-				score += 1000;
+				score = 1000;
 				break;
 		}
 	}
@@ -73,7 +74,7 @@ public class Tetris extends GameTemplate {
 	public void update(int time) {
 		unplacePiece();
 		//handleInput()
-		rotatePieceRight();
+//		rotatePieceRight();
 		if(dropPiece()) {
 			placePiece();
 		}

@@ -80,7 +80,7 @@ public class PlayerGUI {
         b2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GameControl_Tetris c = new GameControl_Tetris(new Tetris(10,10),p1);
+                GameControl_Tetris c = new GameControl_Tetris(new Tetris(14,10),p1);
                 try {
                     c.Gameloop();
                 } catch (InterruptedException interruptedException) {

@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GameControl_Tetris extends GameControlTemplate {
+    int matching_indicator = 0;
     public GameControl_Tetris(GameTemplate g, Player p1){
         super(g,p1);
         jf1.setVisible(true);
@@ -45,6 +46,7 @@ public class GameControl_Tetris extends GameControlTemplate {
                     exit = 1;
                 }
 
+
             }
 
             @Override
@@ -69,26 +71,9 @@ public class GameControl_Tetris extends GameControlTemplate {
 
                     //will only be called when the time from last loop is greater than one second divided by TARGET_FPS
                     //anything called outside of this if will be dependent on machine
-                    if(player_count==1){jf1.setTitle("Score:"+current_player.getScoreOne() );}
-                    else{jf1.setTitle("Player1 Score:"+player_pool[0].score1 +" Player2 Score:"+player_pool[1].score1);}
+                    if(player_count==1){jf1.setTitle("Score:"+current_player.getScoreTwo() );}
+                    else{jf1.setTitle("Player1 Score:"+player_pool[1].score2 +" Player2 Score:"+player_pool[1].score2);}
 
-//                    gp = new GamePanel_CandyCrush(g,next_player);
-//                    g.matching();
-//                    if(g.returnScore()!=0){
-//                        current_player.score1+=g.returnScore();
-////                        gp = new GamePanel_CandyCrush(g,next_player);
-//                        Timer time = new Timer(2000, new ActionListener() {
-//                            @Override
-//                            public void actionPerformed(ActionEvent e) {
-//
-//
-//                                jf1.getContentPane().add(gp);
-//                                jf1.setVisible(true);
-//                            }
-//                        });
-//                        time.setRepeats(false);
-//                        time.start();
-//                    }
 
                     gp = new GamePanel_Tetris(g,next_player);
                     jf1.getContentPane().add(gp);
@@ -97,6 +82,14 @@ public class GameControl_Tetris extends GameControlTemplate {
                     if (deltaTime >= 20) {
                         initialTime = currentTime;
                         g.update(100);
+//                        if(g.returnScore()!=0 && matching_indicator == 1){
+//                            player_pool[0].score2 +=g.returnScore();
+//                            matching_indicator = 0;
+//                        }
+//                        else{
+//                            matching_indicator =1;
+//                        }
+                        g.matching();
                         updates++;
                     }
 

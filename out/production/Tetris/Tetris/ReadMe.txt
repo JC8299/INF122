@@ -1,0 +1,7 @@
+GAME RULES
+
+The default Tetris game board is 10x40 and begins the game empty. One piece drops at a time, starting from the top and dropping until it falls to the bottom of the board or on top of another piece. The objective of the game is to drop pieces to completely fill rows, which clears the row and increases the player's score. The game ends when a piece drops above the top row. Players can move and/or rotate the current falling piece to orient it in the best position to drop.
+
+Pieces can be one of seven types, each represented by a different color. Our Tetris game uses an int value to track the piece kind, and correspondingly draw the appropriate color on the board. They can take the following shapes: line, square, T-shape, S-shape, Z-shape, J-shape, and L-shape. Players can move the piece right, left, or down as well as rotate the piece left or right. Pieces drop one row on every update, and if there is something blocking it then the piece is set in place instead.
+
+Matching occurs after a piece is set, and checks every row in the board to see if it is full. If the row is full, it is cleared and the rows above it drop down to fill the space. Up to four matches can occur at a time with 1, 2, 3, and 4 matches awarding 100, 300, 500, and 1000 score respectively.

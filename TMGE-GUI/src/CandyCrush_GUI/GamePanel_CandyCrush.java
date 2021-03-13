@@ -29,19 +29,19 @@ public class GamePanel_CandyCrush extends JPanel{
         for (int i = 0; i < gameboard.length; i++) {
             for (int j = 0; j < gameboard[0].length; j++) {
                 g.setColor(tColors[gameboard[i][j]]);
-                g.fillRect(100*i, 100*j, 99, 99);
+                g.fillRect(50*i, 50*j, 49, 49);
             }
         }
         Graphics2D g2 = (Graphics2D) g;
-        g2.setStroke(new BasicStroke(10));
+        g2.setStroke(new BasicStroke(5));
         if(player == 1){
             g2.setColor(Color.black);
         }
         else{
             g2.setColor(Color.red);
         }
-        g2.drawRect(game.temp1[0]*100,game.temp1[1]*100,100,100);
-        g2.drawRect(game.temp2[0]*100,game.temp2[1]*100,100,100);
+        g2.drawRect(game.temp1[0]*50,game.temp1[1]*50,49,49);
+        g2.drawRect(game.temp2[0]*50,game.temp2[1]*50,49,49);
 
     }
 

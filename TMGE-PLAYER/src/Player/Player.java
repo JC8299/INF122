@@ -2,8 +2,8 @@ package Player;
 
 public class Player {
     public String name;
-    public int score1;
-    public int score2;
+    private int score1;
+    private int score2;
     public Player(String n){
         name = n;
         score1 = 0;

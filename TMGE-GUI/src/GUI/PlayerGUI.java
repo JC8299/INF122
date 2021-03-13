@@ -49,9 +49,9 @@ public class PlayerGUI {
         JButton b3 = new JButton("CandyCrush 2");
         JButton b2 = new JButton("Tetris");
         JLabel l1,l2;
-        l1=new JLabel("CandyCrush Score:" + p1.score1);
+        l1=new JLabel("CandyCrush Score:" + p1.getScoreOne());
         l1.setBounds(5,5, 200,15);
-        l2=new JLabel("Tetris Score:"+p1.score2);
+        l2=new JLabel("Tetris Score:"+p1.getScoreTwo());
         l2.setBounds(5,20, 200,15);
         jf.add(l1);
         jf.add(l2);

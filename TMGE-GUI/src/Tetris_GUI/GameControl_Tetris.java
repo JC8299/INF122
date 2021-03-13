@@ -14,13 +14,13 @@ public class GameControl_Tetris extends GameControlTemplate {
         super(g,p1);
         jf1.setVisible(true);
         jf1.setSize(g.board.tileMap[0].length*60, g.board.tileMap.length*65);
-        jf1.setTitle("Score:"+current_player.score1 );
+        jf1.setTitle("Score:"+current_player.getScoreTwo() );
     }
     public GameControl_Tetris(GameTemplate g, Player p1, Player p2){
         super(g,p1,p2);
         jf1.setVisible(true);
-        jf1.setSize(g.board.tileMap[0].length*105, g.board.tileMap.length*110);
-        jf1.setTitle("Score:"+current_player.score1 );
+        jf1.setSize(g.board.tileMap[0].length*60, g.board.tileMap.length*65);
+        jf1.setTitle("Score:"+current_player.getScoreTwo() );
     }
 
     @Override
@@ -74,7 +74,7 @@ public class GameControl_Tetris extends GameControlTemplate {
                     //will only be called when the time from last loop is greater than one second divided by TARGET_FPS
                     //anything called outside of this if will be dependent on machine
                     if(player_count==1){jf1.setTitle("Score:"+current_player.getScoreTwo() );}
-                    else{jf1.setTitle("Player1 Score:"+player_pool[1].score2 +" Player2 Score:"+player_pool[1].score2);}
+                    else{jf1.setTitle("Player1 Score:"+player_pool[1].getScoreTwo() +" Player2 Score:"+player_pool[1].getScoreTwo());}
 
 
                     gp = new GamePanel_Tetris(g,next_player);

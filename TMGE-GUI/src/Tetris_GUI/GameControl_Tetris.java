@@ -13,7 +13,7 @@ public class GameControl_Tetris extends GameControlTemplate {
     public GameControl_Tetris(GameTemplate g, Player p1){
         super(g,p1);
         jf1.setVisible(true);
-        jf1.setSize(g.board.tileMap[0].length*105, g.board.tileMap.length*110);
+        jf1.setSize(g.board.tileMap[0].length*60, g.board.tileMap.length*65);
         jf1.setTitle("Score:"+current_player.score1 );
     }
     public GameControl_Tetris(GameTemplate g, Player p1, Player p2){
@@ -41,6 +41,8 @@ public class GameControl_Tetris extends GameControlTemplate {
                 }
                 else if(e.getKeyCode()==KeyEvent.VK_W){
                     g.move(3,0,0,0);
+                } else if(e.getKeyCode()==KeyEvent.VK_S){
+                    g.move(4,0,0,0);
                 }
                 else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
                     exit = 1;
@@ -89,7 +91,6 @@ public class GameControl_Tetris extends GameControlTemplate {
 //                        else{
 //                            matching_indicator =1;
 //                        }
-                        g.matching();
                         updates++;
                     }
 

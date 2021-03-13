@@ -27,7 +27,7 @@ public class GamePanel_Tetris extends JPanel {
         for (int i = 0; i < gameboard.length; i++) {
             for (int j = 0; j < gameboard[0].length; j++) {
                 g.setColor(tColors[gameboard[i][j]]);
-                g.fillRect(100*j, 100*i,99, 99);
+                g.fillRect(50*j, 50*i,49, 49);
             }
         }
 //        Graphics2D g2 = (Graphics2D) g;

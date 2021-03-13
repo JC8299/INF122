@@ -107,6 +107,9 @@ public class Tetris extends GameTemplate {
 		else if(row1 == 3){
 			rotatePieceRight();
 		}
+		else if(row1 == 4){
+			dropPiece();
+		}
 		placePiece();
 		return true;
 	}
